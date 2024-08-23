@@ -8,6 +8,17 @@ import pytz
 import random
 import requests
 import sys
+import time
+
+def hitung_mundur(detik):
+    while detik:
+        mins, secs = divmod(detik, 60)
+        timer = '{:02d}:{:02d}'.format(mins, secs)
+        print(timer, end="\r")
+        time.sleep(1)
+        detik -= 1
+    
+    print("Waktu telah habis!") 
 
 
 class Tomarket:
@@ -158,7 +169,8 @@ class Tomarket:
                     f"{Fore.WHITE + Style.BRIGHT} | {Style.RESET_ALL}"
                     f"{Fore.BLUE + Style.BRIGHT}[ Please Wait 30 Seconds ]{Style.RESET_ALL}"
                 )
-                sleep(33)
+                detik = 30
+                hitung_mundur(detik)
                 self.game_claim(token=token, points=random.randint(6000, 6001))
             elif game_play['status'] == 500 or game_play['message'] == 'no chance':
                 self.print_timestamp(f"{Fore.YELLOW + Style.BRIGHT}[ No Chance To Start Game ]{Style.RESET_ALL}")
